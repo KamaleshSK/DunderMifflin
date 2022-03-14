@@ -26,6 +26,6 @@ public interface EmployeeRepository extends JpaRepository<Employees, Long>, Cust
 	)
 	List<Employees> getEmployeesByGender(@Param("gender") String gender);
 	
-	
+	void deleteById(Long employeeId);
 	
 }

@@ -16,4 +16,7 @@ public interface CustomEmployeeRepository {
 	@Transactional
 	void updateEmployeeBranchByEmployeeId(Long employeeId, Long branchId);
 	
+	@Modifying
+	@Transactional
+	void assignClientToEmployeeByEmployeeId(Long employeeId, Long clientId);
 }

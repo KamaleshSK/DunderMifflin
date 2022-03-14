@@ -3,6 +3,7 @@ package com.training.JPAEntityRelationship.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.training.JPAEntityRelationship.Models.Branch;
 import com.training.JPAEntityRelationship.Models.Employees;
 import com.training.JPAEntityRelationship.Service.BranchService;
+import com.training.JPAEntityRelationship.Service.ClientService;
 import com.training.JPAEntityRelationship.Service.EmployeeService;
 
 @RestController
@@ -25,6 +27,9 @@ public class DunderMifflinController {
 	
 	@Autowired
 	BranchService branchService;
+	
+	@Autowired
+	ClientService clientService;
 	
 	@PostMapping("create-employee")
 	public void createEmployee(@RequestBody String employeePayload) {
@@ -39,6 +44,11 @@ public class DunderMifflinController {
 	@PostMapping("create-branch")
 	public void createBranch(@RequestBody String branchPayload) {
 		branchService.saveBranchWithManager(branchPayload);
+	}
+	
+	@PostMapping("add-client-with-branch")
+	public void addNewClientWithBranch(@RequestBody String clientPayload) {
+		clientService.addNewClientWithBranch(clientPayload);
 	}
 	
 	@GetMapping("/get-all-employees")
@@ -66,6 +76,11 @@ public class DunderMifflinController {
 		employeeService.updateEmployeeBranchByEmployeeId(employeeId, branchId);
 	}
 	
+	@PatchMapping("/assign-client-to-employee")
+	public void assignClientToEmployee(@RequestParam("employee_id") String employeeId, @RequestParam("client_id") String clientId) {
+		employeeService.assignClientToEmployeeByEmployeeId(clientId, employeeId);
+	}
+	
 	@GetMapping("/branch-details-by-branch-id")
 	public Branch getBranchDetailsByBranchId(@RequestParam("branch_id") String branchId) {
 		return branchService.findBranchByBranchId(branchId);
@@ -79,5 +94,20 @@ public class DunderMifflinController {
 	@GetMapping("/employee-details-sorted-by-salary")
 	public List<Employees> getEmployeesSorting() {
 		return employeeService.findAllSorting();
+	}
+	
+	@DeleteMapping("/delete-employee-by-id")
+	public void deleteEmployeeById(@RequestParam("employee_id") String employeeId) {
+		employeeService.deleteEmployeeById(employeeId);
+	}
+	
+	@DeleteMapping("/delete-branch-by-id")
+	public void deleteBranchById(@RequestParam("branch_id") String branchId) {
+		branchService.deleteBranchByBranchId(branchId);
+	}
+	
+	@DeleteMapping("/delete-client-by-id")
+	public void deleteClientById(@RequestParam("client_id") String clientId) {
+		clientService.deleteClientByClientId(clientId);
 	}
 }

@@ -37,4 +37,15 @@ public class CustomEmployeeRepositoryImpl implements CustomEmployeeRepository {
 		
 		query.executeUpdate();
 	}
+	
+	@Override
+	public void assignClientToEmployeeByEmployeeId(Long employeeId, Long clientId) {
+		
+		Query query = entityManager.createNativeQuery("INSERT INTO works_with VALUES ( :clientId, :employeeId );");
+		query.setParameter("clientId", clientId);
+		query.setParameter("employeeId", employeeId);
+		
+		query.executeUpdate();
+		
+	}
 }

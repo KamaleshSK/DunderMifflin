@@ -1,7 +1,5 @@
 package com.training.JPAEntityRelationship.Models;
 
-import java.sql.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,15 +11,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Client")
+@Table(name = "client")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

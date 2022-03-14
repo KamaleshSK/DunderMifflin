@@ -45,4 +45,10 @@ public class BranchService {
 		return null;
 	}
 	
+	public void deleteBranchByBranchId(String branchId) {
+		if (branchId == null) return;
+		
+		branchRepository.deleteById(Long.valueOf(branchId));
+	}
+	
 }

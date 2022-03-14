@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 import com.training.JPAEntityRelationship.DTO.EmployeeDTO;
 import com.training.JPAEntityRelationship.Models.Branch;
+import com.training.JPAEntityRelationship.Models.Client;
 import com.training.JPAEntityRelationship.Models.Employees;
 import com.training.JPAEntityRelationship.Repository.BranchRepository;
+import com.training.JPAEntityRelationship.Repository.ClientRepository;
 import com.training.JPAEntityRelationship.Repository.EmployeeRepository;
 
 @Service
@@ -25,6 +27,9 @@ public class EmployeeService {
 	
 	@Autowired
 	private BranchRepository branchRepository;
+	
+	@Autowired
+	private ClientRepository clientRepository;
 	
 	public void saveEmployeeWithoutBranch(String jsonEmployeeObject) {
 		EmployeeDTO employeeDTO = EmployeeDTO.newInstance(jsonEmployeeObject);
@@ -105,4 +110,16 @@ public class EmployeeService {
 		
 		return listOfEmployees;
 	}
-}
+	
+	public void deleteEmployeeById(String employeeId) {
+		if (employeeId == null) return;
+		
+		employeeRepository.deleteById(Long.valueOf(employeeId));
+	}
+	
+	public void assignClientToEmployeeByEmployeeId(String clientId, String employeeId) {
+		if (clientId == null || employeeId == null) return;
+		
+		employeeRepository.assignClientToEmployeeByEmployeeId(Long.valueOf(clientId), Long.valueOf(employeeId));
+	}
+} 
